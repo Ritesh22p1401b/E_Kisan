@@ -1,13 +1,11 @@
-
 import { useState } from "react";
 import {
   TextField,
   Button,
   Box,
-  Card,
-  CardContent,
   Typography,
   MenuItem,
+  Divider,
 } from "@mui/material";
 import axios from "axios";
 import ResultCard from "./ResultCard";
@@ -31,10 +29,9 @@ const states = [
 ];
 
 const soilTypes = ["Alluvial", "Red", "Arid", "Laterite", "Mountain", "Black"];
-
 const seasons = ["Zaid", "Kharif", "Rabi"];
 
-const CropForm = () => {
+const CropForm = ({ setSelectedSoil, setSelectedSeason }) => {
   const [formData, setFormData] = useState({
     temperature: "",
     humidity: "",
@@ -47,10 +44,22 @@ const CropForm = () => {
     soil_type: "",
     season: "",
   });
+
   const [prediction, setPrediction] = useState(null);
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+
+    // Update local form state
+    setFormData((prev) => ({ ...prev, [name]: value }));
+
+    // Notify parent page for soil and season info update
+    if (name === "soil_type" && setSelectedSoil) {
+      setSelectedSoil(value);
+    }
+    if (name === "season" && setSelectedSeason) {
+      setSelectedSeason(value);
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -76,158 +85,168 @@ const CropForm = () => {
   };
 
   return (
-    <Card
-      elevation={4}
+    <Box
+      component="form"
+      onSubmit={handleSubmit}
       sx={{
-        mt: 4,
-        maxHeight: "85vh", // slightly smaller than full viewport
-        overflowY: "auto", // internal scroll
-        p: 1,
+        background: "#fff",
+        p: 3,
+        borderRadius: 2,
+        boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+        width: "100%",
       }}
     >
-      <CardContent sx={{ p: 2 }}>
-        <Typography
-          variant="h5"
-          align="center"
-          gutterBottom
-          sx={{ fontWeight: 600, mb: 2 }}
-        >
-          Crop Prediction Form
-        </Typography>
+      <Typography
+        variant="h6"
+        align="center"
+        gutterBottom
+        sx={{ fontWeight: 700, color: "#1b5e20" }}
+      >
+        🌾 Crop Prediction Form
+      </Typography>
 
-        <Box
-          component="form"
-          onSubmit={handleSubmit}
+      <Divider sx={{ mb: 3 }} />
+
+      {/* Form Inputs */}
+      <Box
+        sx={{
+          display: "grid",
+          gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" },
+          gap: 2,
+        }}
+      >
+        <TextField
+          select
+          label="State"
+          name="state"
+          value={formData.state}
+          onChange={handleChange}
+          required
+          size="small"
+        >
+          {states.map((state) => (
+            <MenuItem key={state} value={state}>
+              {state}
+            </MenuItem>
+          ))}
+        </TextField>
+
+        <TextField
+          select
+          label="Soil Type"
+          name="soil_type"
+          value={formData.soil_type}
+          onChange={handleChange}
+          required
+          size="small"
+        >
+          {soilTypes.map((soil) => (
+            <MenuItem key={soil} value={soil}>
+              {soil}
+            </MenuItem>
+          ))}
+        </TextField>
+
+        <TextField
+          select
+          label="Season"
+          name="season"
+          value={formData.season}
+          onChange={handleChange}
+          required
+          size="small"
+        >
+          {seasons.map((season) => (
+            <MenuItem key={season} value={season}>
+              {season}
+            </MenuItem>
+          ))}
+        </TextField>
+
+        <TextField
+          label="Temperature (°C)"
+          name="temperature"
+          value={formData.temperature}
+          onChange={handleChange}
+          required
+          size="small"
+        />
+        <TextField
+          label="Humidity (%)"
+          name="humidity"
+          value={formData.humidity}
+          onChange={handleChange}
+          required
+          size="small"
+        />
+        <TextField
+          label="pH Value"
+          name="ph"
+          value={formData.ph}
+          onChange={handleChange}
+          required
+          size="small"
+        />
+        <TextField
+          label="Rainfall (mm)"
+          name="rainfall"
+          value={formData.rainfall}
+          onChange={handleChange}
+          required
+          size="small"
+        />
+        <TextField
+          label="Nitrogen (N)"
+          name="nitrogen"
+          value={formData.nitrogen}
+          onChange={handleChange}
+          required
+          size="small"
+        />
+        <TextField
+          label="Phosphorus (P)"
+          name="phosphorus"
+          value={formData.phosphorus}
+          onChange={handleChange}
+          required
+          size="small"
+        />
+        <TextField
+          label="Potassium (K)"
+          name="potassium"
+          value={formData.potassium}
+          onChange={handleChange}
+          required
+          size="small"
+        />
+      </Box>
+
+      {/* Submit Button */}
+      <Box sx={{ display: "flex", justifyContent: "center", mt: 3 }}>
+        <Button
+          variant="contained"
+          color="success"
+          type="submit"
           sx={{
-            display: "flex",
-            flexDirection: "column",
-            gap: 1.5, // tighter spacing
+            px: 5,
+            py: 1,
+            fontWeight: 600,
+            fontSize: "1rem",
+            borderRadius: "8px",
+            textTransform: "none",
           }}
         >
-          {/* Moved state, soil, season to top */}
-          <TextField
-            select
-            label="State"
-            name="state"
-            value={formData.state}
-            onChange={handleChange}
-            required
-            size="small"
-          >
-            {states.map((state) => (
-              <MenuItem key={state} value={state}>
-                {state}
-              </MenuItem>
-            ))}
-          </TextField>
+          Predict Crop
+        </Button>
+      </Box>
 
-          <TextField
-            select
-            label="Soil Type"
-            name="soil_type"
-            value={formData.soil_type}
-            onChange={handleChange}
-            required
-            size="small"
-          >
-            {soilTypes.map((soil) => (
-              <MenuItem key={soil} value={soil}>
-                {soil}
-              </MenuItem>
-            ))}
-          </TextField>
-
-          <TextField
-            select
-            label="Season"
-            name="season"
-            value={formData.season}
-            onChange={handleChange}
-            required
-            size="small"
-          >
-            {seasons.map((season) => (
-              <MenuItem key={season} value={season}>
-                {season}
-              </MenuItem>
-            ))}
-          </TextField>
-
-          {/* Other weather & soil parameters */}
-          <TextField
-            label="Temperature (°C)"
-            name="temperature"
-            value={formData.temperature}
-            onChange={handleChange}
-            required
-            size="small"
-          />
-          <TextField
-            label="Humidity (%)"
-            name="humidity"
-            value={formData.humidity}
-            onChange={handleChange}
-            required
-            size="small"
-          />
-          <TextField
-            label="pH Value"
-            name="ph"
-            value={formData.ph}
-            onChange={handleChange}
-            required
-            size="small"
-          />
-          <TextField
-            label="Rainfall (mm)"
-            name="rainfall"
-            value={formData.rainfall}
-            onChange={handleChange}
-            required
-            size="small"
-          />
-          <TextField
-            label="Nitrogen (N)"
-            name="nitrogen"
-            value={formData.nitrogen}
-            onChange={handleChange}
-            required
-            size="small"
-          />
-          <TextField
-            label="Phosphorus (P)"
-            name="phosphorus"
-            value={formData.phosphorus}
-            onChange={handleChange}
-            required
-            size="small"
-          />
-          <TextField
-            label="Potassium (K)"
-            name="potassium"
-            value={formData.potassium}
-            onChange={handleChange}
-            required
-            size="small"
-          />
-
-          <Button
-            variant="contained"
-            color="success"
-            type="submit"
-            sx={{ mt: 1.5, alignSelf: "center", width: "60%" }}
-          >
-            Predict Crop
-          </Button>
+      {/* Prediction Result */}
+      {prediction && (
+        <Box sx={{ mt: 4 }}>
+          <ResultCard prediction={prediction} />
         </Box>
-
-        {prediction && (
-          <Box sx={{ mt: 3 }}>
-            <ResultCard prediction={prediction} />
-          </Box>
-        )}
-      </CardContent>
-    </Card>
+      )}
+    </Box>
   );
 };
 

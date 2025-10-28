@@ -1,73 +1,87 @@
-/* App.css - global styles for hidden scrollbar + full-width root */
-
-/* Make the page not show the browser's default scrollbars */
+/* ===== Global Styles ===== */
 html, body, #root {
   margin: 0;
   padding: 0;
   height: 100%;
   width: 100%;
-  overflow: hidden; /* hide browser default scrollbar */
+  overflow-x: hidden; /* only hide horizontal scroll */
   font-family: "Roboto", sans-serif;
+  background-color: #f9f9f9;
 }
 
-/* Smooth scrolling feel (optional) */
 html {
   scroll-behavior: smooth;
 }
 
-/* Utility classes kept */
-.card {
-  padding: 2em;
-}
-.read-the-docs {
-  color: #888;
-}
-
-/* Scrollable wrapper - cross-browser hiding of scrollbar */
-.scrollable-root {
-  height: 100vh;               /* full viewport height */
-  width: 100vw;
-  overflow-y: auto;            /* enable scrolling inside this element */
-  overflow-x: hidden;
-  -webkit-overflow-scrolling: touch; /* smooth scrolling on iOS */
-  scrollbar-width: none;       /* Firefox */
-  -ms-overflow-style: none;    /* IE 10+ */
-}
-
-/* Hide webkit scrollbar (Chrome, Safari, Opera, Edge Chromium) */
-.scrollable-root::-webkit-scrollbar {
-  width: 0px;
-  height: 0px;
-  display: none;
-}
-
-/* Extra safety: if any inner element creates horizontal overflow */
 * {
   box-sizing: border-box;
 }
 
-
-/* /// */
-
-/* Layout for Crop Form and Soil Info */
-.main-container {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 80px; /* space between form and soil info */
-  padding: 2rem;
+/* ===== Scrollable Root ===== */
+.scrollable-root {
+  min-height: 100vh;
   width: 100%;
-  height: 100%;
-  box-sizing: border-box;
+  overflow-y: auto; /* allow scrolling vertically */
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
 }
 
-.crop-form {
-  flex: 0 0 500px; /* fixed width for form */
-  height: auto;
+.scrollable-root::-webkit-scrollbar {
+  display: none;
 }
 
+/* ===== Main Layout for Form Page ===== */
+.main-container {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr 1fr; /* left - center - right */
+  gap: 2rem;
+  align-items: flex-start;
+  padding: 2rem 3rem;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* ===== Left Column (Soil Info) ===== */
 .soil-info {
-  flex: 0 0 600px; /* wider table */
-  height: auto;
-  margin-top: 40px;
+  background: #fff;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  overflow-y: auto;
+  max-height: 80vh;
+}
+
+/* ===== Center Column (Crop Form) ===== */
+.crop-form {
+  background: #fff;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  min-height: 80vh;
+}
+
+/* ===== Right Column (Season Info placeholder) ===== */
+.season-info {
+  background: #fff;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  min-height: 300px;
+}
+
+/* ===== Responsive Adjustments ===== */
+@media (max-width: 1200px) {
+  .main-container {
+    grid-template-columns: 1fr; /* stack vertically */
+    gap: 2rem;
+    padding: 1.5rem;
+  }
+
+  .soil-info,
+  .crop-form,
+  .season-info {
+    max-width: 90%;
+    margin: 0 auto;
+  }
 }
