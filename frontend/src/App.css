@@ -1,42 +1,73 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+/* App.css - global styles for hidden scrollbar + full-width root */
+
+/* Make the page not show the browser's default scrollbars */
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden; /* hide browser default scrollbar */
+  font-family: "Roboto", sans-serif;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+/* Smooth scrolling feel (optional) */
+html {
+  scroll-behavior: smooth;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
+/* Utility classes kept */
 .card {
   padding: 2em;
 }
-
 .read-the-docs {
   color: #888;
+}
+
+/* Scrollable wrapper - cross-browser hiding of scrollbar */
+.scrollable-root {
+  height: 100vh;               /* full viewport height */
+  width: 100vw;
+  overflow-y: auto;            /* enable scrolling inside this element */
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch; /* smooth scrolling on iOS */
+  scrollbar-width: none;       /* Firefox */
+  -ms-overflow-style: none;    /* IE 10+ */
+}
+
+/* Hide webkit scrollbar (Chrome, Safari, Opera, Edge Chromium) */
+.scrollable-root::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+  display: none;
+}
+
+/* Extra safety: if any inner element creates horizontal overflow */
+* {
+  box-sizing: border-box;
+}
+
+
+/* /// */
+
+/* Layout for Crop Form and Soil Info */
+.main-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 80px; /* space between form and soil info */
+  padding: 2rem;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.crop-form {
+  flex: 0 0 500px; /* fixed width for form */
+  height: auto;
+}
+
+.soil-info {
+  flex: 0 0 600px; /* wider table */
+  height: auto;
+  margin-top: 40px;
 }
