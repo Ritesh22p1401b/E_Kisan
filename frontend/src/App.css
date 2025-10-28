@@ -1,87 +1,52 @@
-/* ===== Global Styles ===== */
-html, body, #root {
-  margin: 0;
-  padding: 0;
-  height: 100%;
+/* ===== HomePage-specific fixes ===== */
+.homepage-container {
+  height: 100vh;
   width: 100%;
-  overflow-x: hidden; /* only hide horizontal scroll */
-  font-family: "Roboto", sans-serif;
-  background-color: #f9f9f9;
+  overflow: hidden !important;
+  position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
-* {
+.homepage-main {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 1rem;
   box-sizing: border-box;
+  min-height: 0;
 }
 
-/* ===== Scrollable Root ===== */
-.scrollable-root {
-  min-height: 100vh;
-  width: 100%;
-  overflow-y: auto; /* allow scrolling vertically */
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-}
-
-.scrollable-root::-webkit-scrollbar {
-  display: none;
-}
-
-/* ===== Main Layout for Form Page ===== */
-.main-container {
-  display: grid;
-  grid-template-columns: 1fr 1.2fr 1fr; /* left - center - right */
-  gap: 2rem;
-  align-items: flex-start;
-  padding: 2rem 3rem;
-  width: 100%;
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
-/* ===== Left Column (Soil Info) ===== */
-.soil-info {
-  background: #fff;
-  border-radius: 16px;
-  padding: 1.5rem;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  overflow-y: auto;
-  max-height: 80vh;
-}
-
-/* ===== Center Column (Crop Form) ===== */
-.crop-form {
-  background: #fff;
+/* ✅ Glassmorphism (transparent) card for Welcome text */
+.homepage-card {
+  background: rgba(255, 255, 255, 0.15); /* much more transparent */
+  backdrop-filter: blur(10px); /* frosted-glass effect */
   border-radius: 16px;
   padding: 2rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-  min-height: 80vh;
+  max-width: 800px;
+  width: 90%;
+  text-align: center;
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-/* ===== Right Column (Season Info placeholder) ===== */
-.season-info {
-  background: #fff;
-  border-radius: 16px;
-  padding: 1.5rem;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  min-height: 300px;
+/* Footer stays absolute so no vertical scroll */
+.homepage-footer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: 2;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 1.25rem 1rem;
+  box-sizing: border-box;
+  color: #fff;
 }
 
-/* ===== Responsive Adjustments ===== */
-@media (max-width: 1200px) {
-  .main-container {
-    grid-template-columns: 1fr; /* stack vertically */
-    gap: 2rem;
-    padding: 1.5rem;
-  }
-
-  .soil-info,
-  .crop-form,
-  .season-info {
-    max-width: 90%;
-    margin: 0 auto;
-  }
+.homepage-container::-webkit-scrollbar {
+  display: none;
 }
