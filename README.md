@@ -93,3 +93,45 @@ git clone https://github.com/yourusername/e-kisan.git
 cd e-kisan
 ```
 ---
+## 2️⃣ Backend Setup (Django)
+
+```bash
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py runserver
+```
+---
+### 3️⃣ Frontend Setup (React)
+```bash
+cd frontend
+npm install
+npm start
+```
+---
+## ▶️ How It Works
+
+1. User enters soil nutrient and environmental parameters.
+2. Data is sent to the Django backend via REST API.
+3. The Random Forest model processes the input features.
+4. The system predicts the most suitable crop.
+5. The result is displayed on the React interface.
+
+---
+
+## 📊 Applications
+
+- Precision Agriculture  
+- Sustainable Farming  
+- Yield Optimization  
+- Resource Management  
+- Agricultural Advisory Systems  
+
+---
+
+## 🔮 Future Enhancements
+
+- Integration with real-time weather APIs  
+- Fertilizer recommendation system  
+- Crop yield prediction module  
+- Mobile application version  
+- Cloud deployment (AWS / Azure)  
