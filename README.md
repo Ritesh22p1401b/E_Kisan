@@ -7,11 +7,21 @@ The system leverages Machine Learning to enable data-driven, sustainable farming
 
 ## 📸 Demo
 
-<!-- Upload your screenshot inside the `assets/` folder as demo.png -->
+### 🏠 Home Page
 
-![E-Kisan Demo](assets/demo.png)
+![Home Page](assets/home.png)
 
-*Sample interface showing crop prediction based on soil and weather parameters.*
+---
+
+### 📝 Crop Prediction Form
+
+![Prediction Form](assets/predict-form.png)
+
+---
+
+### 🌾 Prediction Result
+
+![Prediction Result](assets/result.png)
 
 ---
 
