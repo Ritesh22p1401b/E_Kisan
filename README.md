@@ -57,3 +57,39 @@ The model was trained using structured agricultural datasets with preprocessing 
 
 ## 🏗 System Architecture
 
+```mermaid
+flowchart TD
+    A["User Input - Soil & Weather Data"] --> B["React Frontend"]
+    B --> C["Django Backend API"]
+    C --> D["Random Forest Model (.pkl)"]
+    D --> E["Predicted Suitable Crop"]
+```
+
+---
+
+## 🛠 Tech Stack
+
+### Backend
+- Python  
+- Django  
+- scikit-learn  
+- Pickle  
+
+### Frontend
+- React.js  
+- HTML / CSS / JavaScript  
+
+### Database
+- SQLite / PostgreSQL  
+
+---
+
+## 📦 Installation
+
+### 1️⃣ Clone the Repository
+
+```bash
+git clone https://github.com/yourusername/e-kisan.git
+cd e-kisan
+```
+---
